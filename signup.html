@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script>
+		function validateForm() {
+			var id = document.forms["signup"]["userid"].value;
+    		var pw = document.forms["signup"]["pw"].value;
+    		var cpw = document.forms["signup"]["cpw"].value;
+    		if (pw != cpw) {
+        		alert("The passwords you entered do no match!");
+        		return false;
+    		}
+
+
+		}
+	</script>
+
+	<style>
+	body  {
+    	background-image: url("image/background5.jpg");
+    	background-repeat: no-repeat;
+    	background-position:center;
+	}
+	#logo {
+		background-color:white;
+    	text-align:center;
+    	padding:5px;
+	}
+	.text-center {
+		background-color:white;
+		padding:3px;
+		border-bottom:double;
+	}
+	.center-pills {
+    	display:inline-block;
+
+	}
+	.topcorner {
+		position:absolute;
+   		top:10px;
+   		right:100px;
+	}
+	.topcorner a{
+		padding:10px;
+	}
+	#center {
+		clear: both;
+  		width: 1000px;
+  		background-color:white;
+  		text-align:center;
+  		display: block;
+  		height: 15cm;
+  		margin-top:3cm;
+  		margin-left:auto;
+  		margin-right:auto;
+  		padding: 50px;
+  		border:outset Silver  5px;
+	}
+
+	</style>
+</head>
+
+<body>
+	<div id="logo">
+		<img src="image/logo.png">
+	</div>
+
+	<div class="topcorner">
+		<a class="btn btn-default" href="login.html" role="button">Login</a>
+		<a class="btn btn-primary" href="signup.html" role="button">Signup</a>
+	</div>
+
+	<div class="col-md-12 text-center">
+	<ul class="nav nav-pills center-pills">
+ 		<li role="presentation"><a href="home.html">Home</a></li>
+		<li role="presentation"><a href="#">Create Deck</a></li>
+		<li role="presentation"><a href="#">Playtest</a></li>
+	</ul>
+	</div>
+
+	<div id="center">
+		<form name="signup" action="signup_check.php" onsubmit="return validateForm()" method="post">
+			User ID:<br>
+			<input type="text" name="userid" required><br>
+			Password:<br>
+			<input type="password" name="pw" required><br>
+			Confirm Password:<br>
+			<input type="password" name="cpw" required><br>
+			Email:<br>
+			<input type="text" name="email" required><br><br>
+			<input type="submit" value="Register">
+		</form>
+	</div>
+
+</body>
+</html>

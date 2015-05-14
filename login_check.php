@@ -22,12 +22,10 @@
 		$sql = "SELECT * FROM user WHERE userid = '$userid' AND password = '$password'";
 		$result = $con->query($sql);
 		if ($result->num_rows == 0) {
-			header('Location: login_error.html');
-			exit();
+			echo '<script>window.location = "login_error.html"</script>';
 		} else {
 			$_SESSION['userid'] = $userid;
-			header('Location: login_success.html');
-			exit();
+			echo '<script>window.location = "login_success.html"</script>';
 		}
 	?>
 

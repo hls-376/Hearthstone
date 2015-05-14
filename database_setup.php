@@ -1,11 +1,11 @@
 <?php
     $user = 'root';
 	$pass = '';
-	$db = 'testdb';
+	$db = 'hearthstone';
 	
 	$con = new mysqli('localhost', $user, $pass, $db) or die("Unable to connect");
 	
-	$jsondata = file_get_contents('card.json');
+	$jsondata = file_get_contents('cards.json');
 	$data = json_decode($jsondata, true);
 	$cards = $data['cards'];
 	foreach ($cards as $value){

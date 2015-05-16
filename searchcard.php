@@ -6,26 +6,53 @@
 
 <?php
 $name = $_GET['name'];
-//$attack = intval($_GET['attack']);
-//$health = intval($_GET['health']);
-//$cost = intval($_GET['cost']);
+$set = $_GET['set'];
+$race = $_GET['race'];
+$class = $_GET['classN'];
+//$name = '';
+//$set = 'Basic';
+//$race = '';
 
-//$name = 'Prophet';
-//$attack = 7;
-//$health = 7;
-//$cost = 7;
+$namefilter = true;
+$setfilter = true;
+$racefilter = true;
+
+if ($set == ''){
+	$setfilter = false;
+}
+if ($race == ''){
+	$racefilter = false;
+}
+if ($name == ''){
+	$namefilter = false;
+}
 
 $user = 'root';
 $pass = '';
 $db = 'hearthstone';
 $con = new mysqli('localhost', $user, $pass, $db) or die("Unable to connect");
+$sql="SELECT name,cost,rarity,image FROM Card WHERE name LIKE '%".$name."%' AND set_name = '".$set."' AND race = '".$race."' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
 
-$sql="SELECT name,cost,image FROM Card WHERE name LIKE '%".$name."%'"; //AND attack = ".$attack." AND health = ".$health." AND cost = ".$cost;
+if ($set && !$name && !$race){
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE set_name = '".$set."' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+} else if ($set && $name && !$race){
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE name LIKE '%".$name."%' AND set_name = '".$set."' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+} else if (!$set && $name && !$race){
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE name LIKE '%".$name."%' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+} else if (!$set && $name && $race){
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE name LIKE '%".$name."%' AND race = '".$race."' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+} else if ($set && !$name && $race){
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE set_name = '".$set."' AND race = '".$race."' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+} else if (!$set && !$name && $race){
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE race = '".$race."' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+}
+
 $result = $con->query($sql);
 
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
-		echo '<input type="image" src="'.$row["image"].'" onclick="addCard(\''.$row["name"].'\', \''.$row["cost"].'\')" width="200" height="303"/>';
+		$row["name"]=str_replace("'", "\'", $row["name"]);
+		echo '<input type="image" src="'.$row["image"].'" onclick="addCard(\''.$row["name"].'\', \''.$row["cost"].'\',\''.$row["rarity"].'\')" width="200" height="303"/>';
 	}
 } else {
 	echo "0 result";

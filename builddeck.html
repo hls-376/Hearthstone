@@ -7,7 +7,8 @@
 <head>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<script>  
-	function addCard(cardname, cost) {   
+	function addCard(cardname, cost, rarity) {   
+		cardname = cardname.replace("'","\'");
    		var table = document.getElementById("deck");
    		var exist = false; 
     	var rowCount = table.rows.length;
@@ -19,15 +20,15 @@
 
     	if (numCard == 30) {
     		alert("Your deck already has 30 cards!");
-    	}
+    	} else {
 
     	for (i = 1; i<rowCount;i++){
     		var name = table.rows[i].cells[0].innerHTML;
     		if (name == cardname){
-    			if (table.rows[i].cells[2].innerHTML == 1){
-    				table.rows[i].cells[2].innerHTML = 2;
-    			}
     			exist = true;
+    			if (rarity != 'legendary' && table.rows[i].cells[2].innerHTML == 1){
+    				table.rows[i].cells[2].innerHTML = 2;
+    			}		
     		}
     	}
 
@@ -42,28 +43,81 @@
 
     		var row = table.insertRow(rowNum);
  
-    		//row.insertCell(0).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
     		row.insertCell(0).innerHTML= cardname;
     		row.insertCell(1).innerHTML= cost;
     		row.insertCell(2).innerHTML= 1;
+    		row.insertCell(3).innerHTML= '<input type="button" class="btn btn-success" value = "Remove" onClick="Javacsript:deleteCard(this)">';
     	}
+   	 	}
 	}
 
 	function getResult(){
 		var name = document.getElementById("name").value;
-		var attack = document.getElementById("atk").value;
-		var health = document.getElementById("health").value;
-		var cost = document.getElementById("cost").value;
-		//var key = document.getElementById("keyword");
+		name = name.replace("'", "''");
+		var set = document.getElementById("set").value;
+		var race = document.getElementById("race").value;
+		var classN = document.getElementById("className").value;
+		if (name != '' || set !='' || race != ''){
+
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 				document.getElementById("result").innerHTML = xmlhttp.responseText;
 			}
 		}
-		xmlhttp.open("GET","searchcard.php?name="+name+"&attack="+attack+"&health="+health+"&cost="+cost,true);
+		xmlhttp.open("GET","searchcard.php?name="+name+"&set="+set+"&race="+race+"&classN="+classN,true);
 		xmlhttp.send();
+		}
 	}
+
+	function deleteCard(obj){
+		var index = obj.parentNode.parentNode.rowIndex;
+		var table = document.getElementById("deck");
+		var quant = table.rows[index].cells[2].innerHTML;
+		if (quant == '2'){
+			table.rows[index].cells[2].innerHTML = 1;
+		} else {
+			table.deleteRow(index);
+		}
+	}
+
+	function saveDeck(){
+		var deckName = document.getElementById("deckName").value;
+		var className = document.getElementById("className").value;
+		var userid = document.getElementById("username").value;
+		var table = document.getElementById("deck");
+		var rowCount = table.rows.length;
+		var cardList = new Array(rowCount-1);
+		var costList = new Array(rowCount-1);
+		var quantList = new Array(rowCount-1);
+
+		if(deckName == ''){
+			alert("Please enter a deck name!");
+		} else {		
+			for (i=1;i<rowCount;i++){
+				var cardName = table.rows[i].cells[0].innerHTML;
+				var cost = table.rows[i].cells[1].innerHTML;
+				var quantity = table.rows[i].cells[2].innerHTML;
+				cardList[i-1] = cardName;
+				costList[i-1] = cost;
+				quantList[i-1] = quantity;
+			}
+			var jcard = JSON.stringify(cardList);
+			var jcost = JSON.stringify(costList);
+			var jquant = JSON.stringify(quantList);
+
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.open("GET","saveDeck.php?deckName="+deckName+"&userid="+userid+"&class="+className+"&cardlist="+jcard+"&costlist="+jcost+"&quantlist="+jquant,true);
+			xmlhttp.send();
+			xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						//document.getElementById("result").innerHTML = xmlhttp.responseText;
+					}
+			}	
+		}
+	}
+		
+
 	</script>
 	<style>
 	body  {
@@ -109,7 +163,7 @@
   		text-align:center;
   		display: block;
   		overflow:scroll;
-  		width:30cm;
+  		width:25cm;
   		height:20cm;
   		margin-left:5cm;
   		border-right:solid;
@@ -121,12 +175,12 @@
   		overflow:scroll;
   		height:20cm;
   		margin-right:5cm;
+  		padding:10px;
 	}
 	table, th, td {
 		text-align:center;
     	border: 1px solid black;
 	}
-
 	</style>
 </head>
 
@@ -136,30 +190,45 @@
 	</div>
 
 	<div class="topcorner">
-		<strong>Welcome, <font color='blue'><?php echo $_SESSION["userid"], '! ' ?></font></strong>
+		<input type="hidden" id="username" value=<?php echo '"'.$_SESSION["userid"].'"' ?>>
+		<b>Welcome, <font color='blue'><?php echo $_SESSION["userid"], '! ' ?></font></b>
 		<a class="btn btn-danger" href="home.html" role="button">Logout</a>
 	</div>
 
 	<div class="col-md-12 text-center">
 	<ul class="nav nav-pills center-pills">
  		<li role="presentation"><a href="user_home.html">Home</a></li>
-		<li role="presentation" class="active"><a href="#">Create Deck</a></li>
+		<li role="presentation" class="active"><a href="chooseclass.html">Create Deck</a></li>
 		<li role="presentation"><a href="#">Playtest</a></li>
 	</ul>
 	</div>
 
 	<div id="search"> 
 		<form name="searchcard" onsubmit="return getResult()">
-			<strong><font color='Black'>Card Name:</font><strong>
+			<b><font color='Black'>Class:</font></b>
+			<input type="text" id="className" value="<?php echo $_GET["class"] ?>" size="10" disabled>&nbsp&nbsp
+			<b><font color='Black'>Card Name:</font></b>
 			<input type="text" id="name">&nbsp&nbsp
-			<strong><font color='Black'>Attack:</font><strong>
-			<input type="number" id="atk">&nbsp&nbsp
-			<strong><font color='Black'>Health:</font><strong>
-			<input type="number" id="health">&nbsp&nbsp
-			<strong><font color='Black'>Mana Cost:</font><strong>
-			<input type="number" id="cost">&nbsp&nbsp
-			<strong><font color='Black'>Key Word:</font><strong>
-			<input type="text" id="keyword" placeholder="e.g. Taunt, Charge, etc"><br><br>		
+			<b><font color='Black'>Set:</font></b>
+			<select id="set">
+				<option value=""></option>
+				<option value="basic">Basic</option>
+				<option value="expert">Expert</option>
+				<option value="naxxramas">Naxxramas</option>
+				<option value="gvg">Goblin vs Gnomes</option>
+				<option value="brm">Blackrock Mountain</option>
+			</select>&nbsp&nbsp
+			<b><font color='Black'>Race:</font></b>
+			<select id="race">
+				<option value=""></option>
+				<option value="beast">Beast</option>
+				<option value="demon">Demon</option>
+				<option value="dragon">Dragon</option>
+				<option value="mech">Mech</option>
+				<option value="murloc">Murloc</option>
+				<option value="pirate">Pirate</option>
+				<option value="totem">Totem</option>
+			</select>&nbsp&nbsp	
 			<input type="button" value="Search" onclick="getResult()">
 		</form>
 	</div>
@@ -171,11 +240,11 @@
 		$db = 'hearthstone';
 		$con = new mysqli('localhost', $user, $pass, $db) or die("Unable to connect");
 
-		$sql="SELECT name,cost,image FROM Card";
+		$sql="SELECT name,cost,rarity,image FROM Card WHERE playerClass = '".$_GET["class"]."' OR playerClass = 'neutral' ORDER BY playerClass, cost";
 		$result = $con->query($sql);
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				echo '<input type="image" src="'.$row["image"].'" onclick="addCard(\''.$row["name"].'\', \''.$row["cost"].'\')" width="200" height="303"/>';
+				echo '<input type="image" src="'.$row["image"].'" onclick="addCard(\''.$row["name"].'\', \''.$row["cost"].'\',\''.$row["rarity"].'\')" width="200" height="303"/>';
 			}
 		} else {
 			echo "0 result";
@@ -184,16 +253,19 @@
 	</div>
 
 	<div id="decklist">
-		Deck Name
-		<form method="post" action="">
+		<form>
+		<b>Deck Name:</b>
+		<input type="text" id="deckName" required><br><br>
 		<table id="deck" style="width:100%">
 			<tr>
-				<th>Card Name</th>
-				<th>Mana Cost</th>
-				<th>Quantity</th>
+				<th width="45%">Card Name</th>
+				<th width="20%">Mana Cost</th>
+				<th width="15%">Quantity</th>
+				<th width="20%">&nbsp;</th>
 			</tr>
-		</table>
-
+		</table><br>
+		<input type="button" id="save" value="Save Decklist" onClick="saveDeck()">
+		</form>
 	</div>
 
 </body>

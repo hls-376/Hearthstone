@@ -6,6 +6,21 @@
 
 <head>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script>
+	function readDeck(){
+		var userid = document.getElementById("username").value;
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("center").innerHTML = xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("GET","findDecks.php?userid="+userid,true);
+		xmlhttp.send();
+	}
+
+	</script>
+
 	<style>
 	body  {
     	background-image: url("image/background5.jpg");
@@ -51,12 +66,13 @@
 	</style>
 </head>
 
-<body>
+<body onload="readDeck()">
 	<div id="logo">
 		<img src="image/logo.png">
 	</div>
 
 	<div class="topcorner">
+		<input type="hidden" id="username" value=<?php echo '"'.$_SESSION["userid"].'"' ?>>
 		<strong>Welcome, <font color='blue'><?php echo $_SESSION["userid"], '! ' ?></font></strong>
 		<a class="btn btn-danger" href="home.html" role="button">Logout</a>
 	</div>
@@ -64,13 +80,14 @@
 	<div class="col-md-12 text-center">
 	<ul class="nav nav-pills center-pills">
  		<li role="presentation" class="active"><a href="user_home.html">Home</a></li>
-		<li role="presentation"><a href="#">Create Deck</a></li>
+		<li role="presentation"><a href="chooseclass.html">Create Deck</a></li>
 		<li role="presentation"><a href="#">Playtest</a></li>
 	</ul>
 	</div>
 
 	<div id="center">
-		<h1>Welcome!</h1>
+		Your decks:<br>
+
 	</div>
 
 </body>

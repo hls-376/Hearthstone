@@ -19,10 +19,9 @@
 		$race = $value['race'];
 		$category = $value['category'];
 		$set = $value['set'];
-		$description = $value['description'];
 		if ($category != "hero"){
-			$sql = "INSERT INTO Card (name, cost, rarity, playerClass, attack, health, image, race, category, set_name, description)
-			VALUES('$name', '$cost', '$rarity', '$playerClass', '$attack', '$health', '$image', '$race', '$category', '$set', '$description')";
+			$sql = "INSERT INTO Card (name, cost, rarity, playerClass, attack, health, image, race, category, set_name)
+			VALUES('$name', '$cost', '$rarity', '$playerClass', '$attack', '$health', '$image', '$race', '$category', '$set')";
 			$con->query($sql);
 		}
 	}

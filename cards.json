@@ -92,7 +92,7 @@
     },
     {
         "id": 28,
-        "name": "Kor'kron Elite",
+        "name": "Kor''kron Elite",
         "description": "Charge",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/NEW1_011.png",
         "hero": "warrior",
@@ -127,7 +127,7 @@
     },
     {
         "id": 32,
-        "name": "Al'Akir the Windlord",
+        "name": "Al''Akir the Windlord",
         "description": "Windfury, Charge, Divine Shield, Taunt",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/NEW1_010.png",
         "hero": "shaman",
@@ -566,7 +566,7 @@
     },
     {
         "id": 141,
-        "name": "Hunter's Mark",
+        "name": "Hunter''s Mark",
         "description": "Change a minion's Health to 1.",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/CS2_084.png",
         "hero": "hunter",
@@ -1496,7 +1496,7 @@
     },
     {
         "id": 311,
-        "name": "Gladiator's Longbow",
+        "name": "Gladiator''s Longbow",
         "description": "Your hero is Immune while attacking.",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/DS1_188.png",
         "hero": "hunter",
@@ -1778,7 +1778,7 @@
     },
     {
         "id": 383,
-        "name": "Light's Justice",
+        "name": "Light''s Justice",
         "description": "",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/CS2_091.png",
         "hero": "paladin",
@@ -1813,7 +1813,7 @@
     },
     {
         "id": 391,
-        "name": "Perdition's Blade",
+        "name": "Perdition''s Blade",
         "description": "Battlecry: Deal 1 damage. Combo: Deal 2 instead.",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/EX1_133.png",
         "hero": "rogue",
@@ -2021,7 +2021,7 @@
     },
     {
         "id": 421,
-        "name": "Assassin's Blade",
+        "name": "Assassin''s Blade",
         "description": "",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/CS2_080.png",
         "hero": "rogue",
@@ -2663,7 +2663,7 @@
     },
     {
         "id": 530,
-        "name": "Captain's Parrot",
+        "name": "Captain''s Parrot",
         "description": "Battlecry: Put a random Pirate from your deck into your hand.",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/NEW1_016.png",
         "hero": "neutral",
@@ -3154,7 +3154,7 @@
     },
     {
         "id": 614,
-        "name": "Sorcerer's Apprentice",
+        "name": "Sorcerer''s Apprentice",
         "description": "Your spells cost (1) less.",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/EX1_608.png",
         "hero": "mage",
@@ -3289,7 +3289,7 @@
     },
     {
         "id": 635,
-        "name": "Sen'jin Shieldmasta",
+        "name": "Sen''jin Shieldmasta",
         "description": "Taunt",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/CS2_179.png",
         "hero": "neutral",
@@ -3582,7 +3582,7 @@
     },
     {
         "id": 700,
-        "name": "Mogu'shan Warden",
+        "name": "Mogu''shan Warden",
         "description": "Taunt",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/EX1_396.png",
         "hero": "neutral",
@@ -4429,7 +4429,7 @@
     {
         "id": 854,
         "name": "Humility",
-        "description": "Change a minion's Attack to 1.",
+        "description": "Change a minion''s Attack to 1.",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/EX1_360.png",
         "hero": "paladin",
         "category": "spell",
@@ -4569,7 +4569,7 @@
     {
         "id": 886,
         "name": "Lightspawn",
-        "description": "This minion's Attack is always equal to its Health.",
+        "description": "This minion''s Attack is always equal to its Health.",
         "image_url": "http://wow.zamimg.com/images/hearthstone/cards/enus/medium/EX1_335.png",
         "hero": "priest",
         "category": "minion",
@@ -6760,7 +6760,7 @@
     },
     {
         "id": 2006,
-        "name": "Kel'Thuzad",
+        "name": "Kel''Thuzad",
         "description": "At the end of each turn, summon all friendly minions that died this turn.",
         "image_url": "http:\/\/wow.zamimg.com\/images\/hearthstone\/cards\/enus\/original\/FP1_013.png",
         "hero": "neutral",
@@ -6799,7 +6799,7 @@
     },
     {
         "id": 2008,
-        "name": "Nerub'ar Weblord",
+        "name": "Nerub''ar Weblord",
         "description": "Minions with Battlecry cost (2) more.",
         "image_url": "http:\/\/wow.zamimg.com\/images\/hearthstone\/cards\/enus\/original\/FP1_017.png",
         "hero": "neutral",
@@ -7195,7 +7195,7 @@
     },
     {
         "id": 2027,
-        "name": "Anub'ar Ambusher",
+        "name": "Anub''ar Ambusher",
         "description": "<b>Deathrattle:</b> Return a random friendly minion to your hand.",
         "image_url": "http:\/\/wow.zamimg.com\/images\/hearthstone\/cards\/enus\/original\/FP1_026.png",
         "hero": "rogue",
@@ -7255,7 +7255,7 @@
     },
     {
         "id": 2030,
-        "name": "Death's Bite",
+        "name": "Death''s Bite",
         "description": "<b>Deathrattle:</b> Deal 1 damage to all minions.",
         "image_url": "http:\/\/wow.zamimg.com\/images\/hearthstone\/cards\/enus\/original\/FP1_021.png",
         "hero": "warrior",
@@ -7443,7 +7443,7 @@
          "type":"spell",
          "mana":3,
          "collectible":true,
-         "name":"Velen's Chosen",
+         "name":"Velen''s Chosen",
          "description":"Give a minion +2/+4 and Spell Damage +1.",
          "image_url":"http://wow.zamimg.com/images/hearthstone/cards/enus/medium/GVG_010.png",
          "attack":null,
@@ -7517,7 +7517,7 @@
          "attack":6,
          "health":2,
          "collectible":true,
-         "name":"Vol'jin",
+         "name":"Vol''jin",
          "description":"Battlecry: Swap Health with another minion.",
          "image_url":"http://wow.zamimg.com/images/hearthstone/cards/enus/medium/GVG_014.png",
          "effect_list":[
@@ -7644,7 +7644,7 @@
          "attack":9,
          "health":7,
          "race":"demon",
-         "name":"Mal'Ganis",
+         "name":"Mal''Ganis",
          "description":"Your other Demons have +2/+2. Your hero is Immune.",
          "image_url":"http://wow.zamimg.com/images/hearthstone/cards/enus/medium/GVG_021.png",
          "effect_list":[
@@ -7659,7 +7659,7 @@
          "quality":"common",
          "type":"spell",
          "mana":4,
-         "name":"Tinker's Sharpsword Oil",
+         "name":"Tinker''s Sharpsword Oil",
          "description":"Give your weapon +3 Attack. Combo: Give a random friendly minion +3 Attack.",
          "image_url":"http://wow.zamimg.com/images/hearthstone/cards/enus/medium/GVG_022.png",
          "attack":null,
@@ -7697,7 +7697,7 @@
          "mana":3,
          "attack":1,
          "durability":3,
-         "name":"Cogmaster's Wrench",
+         "name":"Cogmaster''s Wrench",
          "description":"Has +2 Attack while you have a Mech.",
          "image_url":"http://wow.zamimg.com/images/hearthstone/cards/enus/medium/GVG_024.png",
          "effect_list":[
@@ -7785,7 +7785,7 @@
          "quality":"epic",
          "type":"spell",
          "mana":4,
-         "name":"Ancestor's Call",
+         "name":"Ancestor''s Call",
          "description":"Put a random minion from each player's hand into the battlefield.",
          "image_url":"http://wow.zamimg.com/images/hearthstone/cards/enus/medium/GVG_029.png",
          "attack":null,
@@ -8148,7 +8148,7 @@
          "attack":6,
          "health":9,
          "race":"beast",
-         "name":"Gahz'rilla",
+         "name":"Gahz''rilla",
          "description":"Whenever this minion takes damage, double its Attack.",
          "image_url":"http://wow.zamimg.com/images/hearthstone/cards/enus/medium/GVG_049.png",
          "effect_list":[
@@ -8615,7 +8615,7 @@
          "quality":"common",
          "attack":2,
          "health":3,
-         "name":"Ship's Cannon",
+         "name":"Ship''s Cannon",
          "description":"Whenever you summon a Pirate, deal 2 damage to a random enemy.",
          "image_url":"http://wow.zamimg.com/images/hearthstone/cards/enus/medium/GVG_075.png",
          "effect_list":[
@@ -9011,7 +9011,7 @@
          "quality":"rare",
          "attack":2,
          "health":3,
-         "name":"Lil' Exorcist",
+         "name":"Lil'' Exorcist",
          "description":"Taunt Battlecry: Gain +1/+1 for each enemy Deathrattle minion.",
          "image_url":"http://wow.zamimg.com/images/hearthstone/cards/enus/medium/GVG_097.png",
          "effect_list":[
@@ -9264,7 +9264,7 @@
          "attack":4,
          "health":5,
          "race":"mech",
-         "name":"Mimiron's Head",
+         "name":"Mimiron''s Head",
          "description":"At the start of your turn, if you have at least 3 Mechs, destroy them all and form V-07-TR-0N.",
          "image_url":"http://wow.zamimg.com/images/hearthstone/cards/enus/medium/GVG_111.png",
          "effect_list":[
@@ -9318,7 +9318,7 @@
          "attack":5,
          "health":7,
          "race":"mech",
-         "name":"Sneed's Old Shredder",
+         "name":"Sneed''s Old Shredder",
          "description":"Deathrattle: Summon a random legendary minion.",
          "image_url":"http://wow.zamimg.com/images/hearthstone/cards/enus/medium/GVG_114.png",
          "effect_list":[
@@ -9531,7 +9531,7 @@
         "quality":"common",
         "type":"spell",
         "mana":5,
-        "name":"Dragon's Breath",
+        "name":"Dragon''s Breath",
         "description":"Deal 4 damage. Costs (1) less for each minion that died this turn.",
         "image_url":"http://wow.zamimg.com/images/hearthstone/cards/enus/medium/BRM_003.png",
         "attack":null,

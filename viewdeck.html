@@ -90,31 +90,35 @@
 		var cardList = new Array(rowCount-1);
 		var costList = new Array(rowCount-1);
 		var quantList = new Array(rowCount-1);
-
-		if(deckName == ''){
-			alert("Please enter a deck name!");
-		} else {		
-			for (i=1;i<rowCount;i++){
-				var cardName = table.rows[i].cells[0].innerHTML;
-				var cost = table.rows[i].cells[1].innerHTML;
-				var quantity = table.rows[i].cells[2].innerHTML;
-				cardList[i-1] = cardName;
-				costList[i-1] = cost;
-				quantList[i-1] = quantity;
-			}
-			var jcard = JSON.stringify(cardList);
-			var jcost = JSON.stringify(costList);
-			var jquant = JSON.stringify(quantList);
-
-			var xmlhttp = new XMLHttpRequest();
-			xmlhttp.open("GET","saveDeck.php?deckName="+deckName+"&userid="+userid+"&class="+className+"&cardlist="+jcard+"&costlist="+jcost+"&quantlist="+jquant,true);
-			xmlhttp.send();
-			xmlhttp.onreadystatechange = function() {
-					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-						//document.getElementById("result").innerHTML = xmlhttp.responseText;
-					}
-			}	
+		
+		for (i=1;i<rowCount;i++){
+			var cardName = table.rows[i].cells[0].innerHTML;
+			var cost = table.rows[i].cells[1].innerHTML;
+			var quantity = table.rows[i].cells[2].innerHTML;
+			cardList[i-1] = cardName;
+			costList[i-1] = cost;
+			quantList[i-1] = quantity;
 		}
+		var jcard = JSON.stringify(cardList);
+		var jcost = JSON.stringify(costList);
+		var jquant = JSON.stringify(quantList);
+
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET","saveDeck.php?deckName="+deckName+"&userid="+userid+"&class="+className+"&cardlist="+jcard+"&costlist="+jcost+"&quantlist="+jquant,true);
+		xmlhttp.send();
+	}
+	
+	function readDecklist(deckName, classN){
+		var userid = document.getElementById("username").value;
+		var xmlhttp = new XMLHttpRequest();
+
+		xmlhttp.open("GET","displayDecklist.php?deckName="+deckName+"&class="+classN+"&userid="+userid,true);
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("decklist").innerHTML = xmlhttp.responseText;
+			}
+		}
+		xmlhttp.send();
 	}
 		
 
@@ -184,7 +188,7 @@
 	</style>
 </head>
 
-<body>
+<body onload="readDecklist(<?php echo '\''.$_GET["deckName"].'\'' ?>, <?php echo '\''.$_GET["class"].'\'' ?>)">
 	<div id="logo">
 		<img src="image/logo.png">
 	</div>
@@ -199,7 +203,7 @@
 	<ul class="nav nav-pills center-pills">
  		<li role="presentation"><a href="user_home.html">Home</a></li>
 		<li role="presentation" class="active"><a href="chooseclass.html">Create Deck</a></li>
-		<li role="presentation"><a href="testoptions.html">Playtest</a></li>
+		<li role="presentation"><a href="#">Playtest</a></li>
 	</ul>
 	</div>
 
@@ -253,7 +257,7 @@
 	</div>
 
 	<div id="decklist">
-		<form action="user_home.html">
+		<form>
 		<b>Deck Name:</b>
 		<input type="text" id="deckName" required><br><br>
 		<table id="deck" style="width:100%">
@@ -264,7 +268,7 @@
 				<th width="20%">&nbsp;</th>
 			</tr>
 		</table><br>
-		<input type="submit" id="save" value="Save Decklist" onClick="saveDeck()">
+		<input type="button" id="save" value="Save Decklist" onClick="saveDeck()">
 		</form>
 	</div>
 

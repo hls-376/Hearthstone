@@ -7,18 +7,6 @@
 <head>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<script>
-	function readDeck(){
-		var userid = document.getElementById("username").value;
-
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				document.getElementById("center").innerHTML = xmlhttp.responseText;
-			}
-		}
-		xmlhttp.open("GET","findDecks.php?userid="+userid,true);
-		xmlhttp.send();
-	}
 	function deleteDeck(obj){
 		var index = obj.parentNode.parentNode.rowIndex;
 		var table = document.getElementById("decks");
@@ -33,6 +21,31 @@
 		table.deleteRow(index);
 	}
 
+	function onePlayer(){
+		var userid = document.getElementById("username").value;
+
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("center").innerHTML = xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("GET","onePlayer.php?userid="+userid,true);
+		xmlhttp.send();
+	}
+
+	function twoPlayers(){
+		var userid = document.getElementById("username").value;
+
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("center").innerHTML = xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("GET","twoPlayers.php?userid="+userid,true);
+		xmlhttp.send();
+	}
 	</script>
 
 	<style>
@@ -84,7 +97,7 @@
 	</style>
 </head>
 
-<body onload="readDeck()">
+<body>
 	<div id="logo">
 		<img src="image/logo.png">
 	</div>
@@ -97,14 +110,16 @@
 
 	<div class="col-md-12 text-center">
 	<ul class="nav nav-pills center-pills">
- 		<li role="presentation" class="active"><a href="user_home.html">Home</a></li>
+ 		<li role="presentation"><a href="user_home.html">Home</a></li>
 		<li role="presentation"><a href="chooseclass.html">Create Deck</a></li>
-		<li role="presentation"><a href="testoptions.html">Playtest</a></li>
+		<li role="presentation" class="active"><a href="testoptions.html">Playtest</a></li>
 	</ul>
 	</div>
 
 	<div id="center">
-		Your decks:<br>
+		<h1>Choose option:</h1><br><br>
+		<input type="button" class="btn btn-success" onClick="onePlayer()" value="One player"><br><br>
+		<input type="button" class="btn btn-success" onClick="twoPlayers()" value="Two players">
 
 	</div>
 

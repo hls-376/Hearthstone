@@ -15,21 +15,19 @@ $con = new mysqli('localhost', $user, $pass, $db) or die("Unable to connect");
 $sql="SELECT deckname, class FROM deckuser WHERE userid = '$userid'";
 $result = $con->query($sql);
 if ($result->num_rows > 0) {
-	echo 'Your decks:<br><br>';
+	echo '<h2>Choose a deck:</h2><br><br>';
 	echo '<table id="decks" style="width:100%">';
 		echo '<tr>
 				<th width="35%">Deck Name</th>
 				<th width="35%">Class</th>
-				<th width="15%">&nbsp;</th>
 				<th width="15%">&nbsp;</th>
 			</tr>';
 	while($row = $result->fetch_assoc()) {
 		echo '<tr>';
 		echo '<td>'.$row["deckname"].'</td>';
 		echo '<td>'.$row["class"].'</td>';
-		echo '<td><form action="viewdeck.html"><input type="hidden" name="deckName" value="'.$row["deckname"].'"><input type="hidden" name="class" value="'.$row["class"].'">';
-		echo '<input type="submit" class="btn btn-warning" value = "View/Edit"></form></td>';
-		echo '<td><input type="button" class="btn btn-danger" value = "Delete" onClick="Javacsript:deleteDeck(this)"></td>';
+		echo '<td><form action="test.html"><input type="hidden" name="deckName" value="'.$row["deckname"].'"><input type="hidden" name="class" value="'.$row["class"].'">';
+		echo '<input type="submit" class="btn btn-warning" value = "Choose"></form></td>';
 		echo '</tr>';
 	}
 	echo '</table>';

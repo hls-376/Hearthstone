@@ -13,6 +13,7 @@
    		var exist = false; 
     	var rowCount = table.rows.length;
     	var numCard = 0;
+    	var cc = document.getElementById("cardcount");
 
     	for (i = 1; i<rowCount;i++){
     		numCard += Number(table.rows[i].cells[2].innerHTML);
@@ -28,6 +29,7 @@
     			exist = true;
     			if (rarity != 'legendary' && table.rows[i].cells[2].innerHTML == 1){
     				table.rows[i].cells[2].innerHTML = 2;
+    				cc.innerHTML = 'Card Count = '+(numCard+1);
     			}		
     		}
     	}
@@ -47,6 +49,7 @@
     		row.insertCell(1).innerHTML= cost;
     		row.insertCell(2).innerHTML= 1;
     		row.insertCell(3).innerHTML= '<input type="button" class="btn btn-success" value = "Remove" onClick="Javacsript:deleteCard(this)">';
+    		cc.innerHTML = 'Card Count = '+(numCard+1);
     	}
    	 	}
 	}
@@ -57,7 +60,12 @@
 		var set = document.getElementById("set").value;
 		var race = document.getElementById("race").value;
 		var classN = document.getElementById("className").value;
-		if (name != '' || set !='' || race != ''){
+		var atkmin = document.getElementById("minatk").value;
+		var atkmax = document.getElementById("maxatk").value;
+		var costmin = document.getElementById("mincost").value;
+		var costmax = document.getElementById("maxcost").value;
+
+		//if (name != '' || set !='' || race != ''){
 
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -65,20 +73,30 @@
 				document.getElementById("result").innerHTML = xmlhttp.responseText;
 			}
 		}
-		xmlhttp.open("GET","searchcard.php?name="+name+"&set="+set+"&race="+race+"&classN="+classN,true);
+		xmlhttp.open("GET","searchcard.php?name="+name+"&set="+set+"&race="+race+"&classN="+classN+"&atkmin="+atkmin+"&atkmax="+atkmax+"&costmin="+costmin+"&costmax="+costmax,true);
 		xmlhttp.send();
-		}
+		
 	}
 
 	function deleteCard(obj){
 		var index = obj.parentNode.parentNode.rowIndex;
 		var table = document.getElementById("deck");
+		var rowCount = table.rows.length;
+		var numCard = 0;
+		var cc = document.getElementById("cardcount");
+
+		for (i = 1; i<rowCount;i++){
+    		numCard += Number(table.rows[i].cells[2].innerHTML);
+    	}
+
 		var quant = table.rows[index].cells[2].innerHTML;
 		if (quant == '2'){
 			table.rows[index].cells[2].innerHTML = 1;
 		} else {
 			table.deleteRow(index);
 		}
+
+		cc.innerHTML = 'Card Count = '+(numCard-1);
 	}
 
 	function saveDeck(){
@@ -162,7 +180,7 @@
 		background-color:AntiqueWhite;
   		text-align:center;
   		display: block;
-  		overflow:scroll;
+  		overflow:auto;
   		width:25cm;
   		height:20cm;
   		margin-left:5cm;
@@ -172,7 +190,7 @@
 		background-color:AntiqueWhite;
   		text-align:center;
   		display: block;
-  		overflow:scroll;
+  		overflow:auto;
   		height:20cm;
   		margin-right:5cm;
   		padding:10px;
@@ -205,8 +223,8 @@
 
 	<div id="search"> 
 		<form name="searchcard" onsubmit="return getResult()">
-			<b><font color='Black'>Class:</font></b>
-			<input type="text" id="className" value="<?php echo $_GET["class"] ?>" size="10" disabled>&nbsp&nbsp
+			<b><font color='Black'>Class:</font>
+			<input type="text" id="className" value="<?php echo $_GET["class"] ?>" size="10" disabled></b>&nbsp&nbsp
 			<b><font color='Black'>Card Name:</font></b>
 			<input type="text" id="name">&nbsp&nbsp
 			<b><font color='Black'>Set:</font></b>
@@ -228,8 +246,12 @@
 				<option value="murloc">Murloc</option>
 				<option value="pirate">Pirate</option>
 				<option value="totem">Totem</option>
-			</select>&nbsp&nbsp	
-			<input type="button" value="Search" onclick="getResult()">
+			</select><br><br>
+			<b><font color='Red'>Attack</font>(min-max):</b>
+			<input type="text" id="minatk" value="0" size="1" maxlength="2"><b>&nbsp&#8212&nbsp</b><input type="text" id="maxatk" value="20" size="1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<b><font color='Blue'>Mana Cost</font>(min-max):</b>
+			<input type="text" id="mincost" value="0" size="1"><b>&nbsp&#8212&nbsp</b><input type="text" id="maxcost" value="20" size="1"><br><br>
+			<input type="button" class="btn btn-success" value="Search" onclick="getResult()">
 		</form>
 	</div>
 
@@ -244,6 +266,7 @@
 		$result = $con->query($sql);
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
+				$row["name"]=str_replace("'", "\'", $row["name"]);
 				echo '<input type="image" src="'.$row["image"].'" onclick="addCard(\''.$row["name"].'\', \''.$row["cost"].'\',\''.$row["rarity"].'\')" width="200" height="303"/>';
 			}
 		} else {
@@ -264,8 +287,12 @@
 				<th width="20%">&nbsp;</th>
 			</tr>
 		</table><br>
+		<div id="cardcount">
+			Card Count = 0;
+		</div><br>
 		<input type="submit" id="save" value="Save Decklist" onClick="saveDeck()">
 		</form>
+
 	</div>
 
 </body>

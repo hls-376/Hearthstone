@@ -13,6 +13,7 @@
    		var exist = false; 
     	var rowCount = table.rows.length;
     	var numCard = 0;
+    	var cc = document.getElementById("cardcount");
 
     	for (i = 1; i<rowCount;i++){
     		numCard += Number(table.rows[i].cells[2].innerHTML);
@@ -28,6 +29,7 @@
     			exist = true;
     			if (rarity != 'legendary' && table.rows[i].cells[2].innerHTML == 1){
     				table.rows[i].cells[2].innerHTML = 2;
+    				cc.innerHTML = 'Card Count = '+(numCard+1);
     			}		
     		}
     	}
@@ -47,6 +49,7 @@
     		row.insertCell(1).innerHTML= cost;
     		row.insertCell(2).innerHTML= 1;
     		row.insertCell(3).innerHTML= '<input type="button" class="btn btn-success" value = "Remove" onClick="Javacsript:deleteCard(this)">';
+    		cc.innerHTML = 'Card Count = '+(numCard+1);
     	}
    	 	}
 	}
@@ -73,12 +76,22 @@
 	function deleteCard(obj){
 		var index = obj.parentNode.parentNode.rowIndex;
 		var table = document.getElementById("deck");
+		var rowCount = table.rows.length;
+		var numCard = 0;
+		var cc = document.getElementById("cardcount");
+
+		for (i = 1; i<rowCount;i++){
+    		numCard += Number(table.rows[i].cells[2].innerHTML);
+    	}
+
 		var quant = table.rows[index].cells[2].innerHTML;
 		if (quant == '2'){
 			table.rows[index].cells[2].innerHTML = 1;
 		} else {
 			table.deleteRow(index);
 		}
+
+		cc.innerHTML = 'Card Count = '+(numCard-1);
 	}
 
 	function saveDeck(){
@@ -119,6 +132,16 @@
 			}
 		}
 		xmlhttp.send();
+
+		var table = document.getElementById("deck");
+		var rowCount = table.rows.length;
+    	var numCard = 0;
+    	var cc = document.getElementById("cardcount");
+
+    	for (i = 1; i<rowCount;i++){
+    		numCard += Number(table.rows[i].cells[2].innerHTML);
+    	}
+    	cc.innerHTML = 'Card Count = '+numCard;
 	}
 		
 
@@ -203,7 +226,7 @@
 	<ul class="nav nav-pills center-pills">
  		<li role="presentation"><a href="user_home.html">Home</a></li>
 		<li role="presentation" class="active"><a href="chooseclass.html">Create Deck</a></li>
-		<li role="presentation"><a href="#">Playtest</a></li>
+		<li role="presentation"><a href="testoptions.html">Playtest</a></li>
 	</ul>
 	</div>
 
@@ -268,6 +291,7 @@
 				<th width="20%">&nbsp;</th>
 			</tr>
 		</table><br>
+		<div id="cardcount"> Card Count = </div>
 		<input type="button" id="save" value="Save Decklist" onClick="saveDeck()">
 		</form>
 	</div>

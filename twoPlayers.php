@@ -15,7 +15,7 @@ $con = new mysqli('localhost', $user, $pass, $db) or die("Unable to connect");
 $sql="SELECT deckname, class FROM deckuser WHERE userid = '$userid'";
 $result = $con->query($sql);
 if ($result->num_rows > 0) {
-	echo '<h2>Choose a deck:</h2><br><br>';
+	echo '<h2>Choose a deck for your opponent:</h2><br><br>';
 	echo '<table id="decks" style="width:100%">';
 		echo '<tr>
 				<th width="35%">Deck Name</th>
@@ -26,8 +26,7 @@ if ($result->num_rows > 0) {
 		echo '<tr>';
 		echo '<td>'.$row["deckname"].'</td>';
 		echo '<td>'.$row["class"].'</td>';
-		echo '<td><form action="test.html"><input type="hidden" name="deckName" value="'.$row["deckname"].'"><input type="hidden" name="class" value="'.$row["class"].'">';
-		echo '<input type="submit" class="btn btn-warning" value = "Choose"></form></td>';
+		echo '<td><input type="button" class="btn btn-warning" value = "Choose" onClick="chooseYourDeck(this)"></form></td>';
 		echo '</tr>';
 	}
 	echo '</table>';

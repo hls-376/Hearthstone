@@ -1,0 +1,183 @@
+<?php
+	session_start();
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script>
+	function startGame(){
+		var userid = document.getElementById("username").value;
+		var deckName = document.getElementById("deckName").value;
+		var classN = document.getElementById("class").value;
+		var deckInfo = document.getElementById("deckname");
+
+		document.getElementById("start").innerHTML='';
+		deckInfo.innerHTML=deckInfo.innerHTML+'<input type="button" class="btn btn-info" value = "Draw a card" onClick="draw()">';
+
+		var hand = document.getElementById("hand");
+		hand.innerHTML = '<font size="5"><b>Your hand:</b></font><br>';
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				hand.innerHTML = hand.innerHTML + xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("GET","startGame.php?userid="+userid+"&deckName="+deckName+"&class="+classN,true);
+		xmlhttp.send();
+	}
+
+	function draw(){
+		var userid = document.getElementById("username").value;
+		var deckName = document.getElementById("deckName").value;
+		var classN = document.getElementById("class").value;
+		var cardleft = document.getElementById("cardleft");
+		cardleft.value = Number(cardleft.value)-1;
+
+		var card1 = document.getElementById("card1");
+		var card2 = document.getElementById("card2");
+		var card3 = document.getElementById("card3");
+		if (card1 != null){
+			card1.disabled=true;
+		}
+		if (card2 != null){
+			card2.disabled=true;
+		}
+		if (card3 != null){
+			card3.disabled=true;
+		}
+
+
+		var hand = document.getElementById("hand");
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				hand.innerHTML = hand.innerHTML + xmlhttp.responseText;
+				if (Number(cardleft.value)==0){
+					hand.innerHTML = hand.innerHTML + '<a href="testoptions.html"><input type="button" class="btn btn-primary" value = "Play Again"></a>'
+				}
+			}
+		}
+		xmlhttp.open("GET","draw.php?userid="+userid+"&deckName="+deckName+"&class="+classN,true);
+		xmlhttp.send();
+	}
+
+	function mulligan(cardN, url, quant, obj){
+		var userid = document.getElementById("username").value;
+		var deckName = document.getElementById("deckName").value;
+		var classN = document.getElementById("class").value;
+
+		obj.remove();
+		var hand = document.getElementById("hand");
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				hand.innerHTML = hand.innerHTML + xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("GET","mulligan.php?userid="+userid+"&deckName="+deckName+"&class="+classN+"&cardName="+cardN+"&url="+url+"&quant="+quant,true);
+		xmlhttp.send();
+	}
+
+	</script>
+
+	<style>
+	body  {
+    	background-image: url("image/background5.jpg");
+    	background-repeat: no-repeat;
+    	background-position:center;
+	}
+	#logo {
+		background-color:white;
+    	text-align:center;
+    	padding:5px;
+	}
+	.text-center {
+		background-color:white;
+		padding:3px;
+		border-bottom:double;
+	}
+	.center-pills {
+    	display:inline-block;
+
+	}
+	.topcorner {
+		position:absolute;
+   		top:10px;
+   		right:100px;
+	}
+	.topcorner a{
+		padding:10px;
+	}
+	#center {
+		clear: both;
+  		width: 1100px;
+  		background-color:white;
+  		text-align:center;
+  		display: block;
+  		height: 17.5cm;
+  		margin-top:3cm;
+  		margin-left:auto;
+  		margin-right:auto;
+  		overflow:auto;
+  		border:solid Silver;
+	}
+	#deckname {
+		background-color:AntiqueWhite;
+		padding: 10px;
+		border-bottom:solid;
+	}
+	#start {
+		margin-top:1cm;
+	}
+	#startbt {
+		width:3cm;
+		height:1.5cm;
+	}
+	#hand {
+		padding: 10px;
+	}
+	table, th, td {
+		text-align:center;
+    	border: 1px solid black;
+	}
+
+	</style>
+</head>
+
+<body>
+	<div id="logo">
+		<img src="image/logo.png">
+	</div>
+
+	<div class="topcorner">
+		<input type="hidden" id="username" value=<?php echo '"'.$_SESSION["userid"].'"' ?>>
+		<strong>Welcome, <font color='blue'><?php echo $_SESSION["userid"], '! ' ?></font></strong>
+		<a class="btn btn-danger" href="home.html" role="button">Logout</a>
+	</div>
+
+	<div class="col-md-12 text-center">
+	<ul class="nav nav-pills center-pills">
+ 		<li role="presentation"><a href="user_home.html">Home</a></li>
+		<li role="presentation"><a href="chooseclass.html">Create Deck</a></li>
+		<li role="presentation" class="active"><a href="testoptions.html">Playtest</a></li>
+	</ul>
+	</div>
+	<input type="hidden" id="class" value=<?php echo '"'.$_GET["class"].'"' ?>>
+	<input type="hidden" id="deckName" value=<?php echo '"'.$_GET["deckName"].'"' ?>>
+
+	<div id="center">
+		<div id="deckname">
+			<input type="hidden" id="cardleft" value="27">
+			<font size="4"><b>Deck Name: <font color="red"><?php echo $_GET["deckName"] ?></font>&nbsp&nbsp&nbsp&nbsp
+			Class: <font color="green"><?php echo $_GET["class"] ?></font></b></font>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		</div>
+		<div id="hand"></div>
+		<div id="start">
+			<input type="button" class="btn btn-success" id="startbt" value="Start" onclick="startGame()">
+		</div>
+	</div>
+
+</body>
+</html>

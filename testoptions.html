@@ -46,6 +46,46 @@
 		xmlhttp.open("GET","twoPlayers.php?userid="+userid,true);
 		xmlhttp.send();
 	}
+
+	function chooseYourDeck(obj){
+		var index = obj.parentNode.parentNode.rowIndex;
+		var table = document.getElementById("decks");
+		var deckName = table.rows[index].cells[0].innerHTML;
+		var classN = table.rows[index].cells[1].innerHTML;
+		var userid = document.getElementById("username").value;
+
+
+		var center = document.getElementById("center");
+		center.innerHTML = 'Your opponent\'s deck: '+ deckName + '<br><br>';
+
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				center.innerHTML = center.innerHTML + xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("GET","chooseDeck.php?userid="+userid,true);
+		xmlhttp.send();		
+
+	}
+
+	function createTemp(obj){
+		var index = obj.parentNode.parentNode.rowIndex;
+		var table = document.getElementById("decks");
+		var deckName = table.rows[index].cells[0].innerHTML;
+		var classN = table.rows[index].cells[1].innerHTML;
+		var userid = document.getElementById("username").value;
+
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("center").innerHTML = xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("GET","createTemp.php?userid="+userid+"&deckName="+deckName+"&class="+classN,true);
+		xmlhttp.send();	
+	}
+
 	</script>
 
 	<style>
@@ -87,7 +127,7 @@
   		margin-left:auto;
   		margin-right:auto;
   		padding: 50px;
-  		border:outset Silver  5px;
+  		border:solid Silver;
 	}
 	table, th, td {
 		text-align:center;
@@ -97,7 +137,7 @@
 	</style>
 </head>
 
-<body>
+<body onload="onePlayer()">
 	<div id="logo">
 		<img src="image/logo.png">
 	</div>

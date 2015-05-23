@@ -15,7 +15,7 @@ $con = new mysqli('localhost', $user, $pass, $db) or die("Unable to connect");
 $sql="SELECT deckname, class FROM deckuser WHERE userid = '$userid'";
 $result = $con->query($sql);
 if ($result->num_rows > 0) {
-	echo 'Your decks:<br><br>';
+	echo '<font size="5"><b>Your decks:</b></font><br><br>';
 	echo '<table id="decks" style="width:100%">';
 		echo '<tr>
 				<th width="35%">Deck Name</th>

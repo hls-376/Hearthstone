@@ -9,6 +9,11 @@ $name = $_GET['name'];
 $set = $_GET['set'];
 $race = $_GET['race'];
 $class = $_GET['classN'];
+$atkmin = $_GET['atkmin'];
+$atkmax = $_GET['atkmax'];
+$costmin = $_GET['costmin'];
+$costmax = $_GET['costmax'];
+$filter = " AND attack >= ".$atkmin." AND attack <= ".$atkmax." AND cost >= ".$costmin." AND cost <= ".$costmax." ORDER BY playerClass, cost";
 //$name = '';
 //$set = 'Basic';
 //$race = '';
@@ -31,20 +36,22 @@ $user = 'root';
 $pass = '';
 $db = 'hearthstone';
 $con = new mysqli('localhost', $user, $pass, $db) or die("Unable to connect");
-$sql="SELECT name,cost,rarity,image FROM Card WHERE name LIKE '%".$name."%' AND set_name = '".$set."' AND race = '".$race."' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+$sql="SELECT name,cost,rarity,image FROM Card WHERE name LIKE '%".$name."%' AND set_name = '".$set."' AND race = '".$race."' AND (playerClass = '".$class."' OR playerClass = 'neutral')".$filter;
 
 if ($set && !$name && !$race){
-	$sql="SELECT name,cost,rarity,image FROM Card WHERE set_name = '".$set."' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE set_name = '".$set."' AND (playerClass = '".$class."' OR playerClass = 'neutral')".$filter;
 } else if ($set && $name && !$race){
-	$sql="SELECT name,cost,rarity,image FROM Card WHERE name LIKE '%".$name."%' AND set_name = '".$set."' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE name LIKE '%".$name."%' AND set_name = '".$set."' AND (playerClass = '".$class."' OR playerClass = 'neutral')".$filter;
 } else if (!$set && $name && !$race){
-	$sql="SELECT name,cost,rarity,image FROM Card WHERE name LIKE '%".$name."%' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE name LIKE '%".$name."%' AND (playerClass = '".$class."' OR playerClass = 'neutral')".$filter;
 } else if (!$set && $name && $race){
-	$sql="SELECT name,cost,rarity,image FROM Card WHERE name LIKE '%".$name."%' AND race = '".$race."' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE name LIKE '%".$name."%' AND race = '".$race."' AND (playerClass = '".$class."' OR playerClass = 'neutral')".$filter;
 } else if ($set && !$name && $race){
-	$sql="SELECT name,cost,rarity,image FROM Card WHERE set_name = '".$set."' AND race = '".$race."' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE set_name = '".$set."' AND race = '".$race."' AND (playerClass = '".$class."' OR playerClass = 'neutral')".$filter;
 } else if (!$set && !$name && $race){
-	$sql="SELECT name,cost,rarity,image FROM Card WHERE race = '".$race."' AND (playerClass = '".$class."' OR playerClass = 'neutral') ORDER BY playerClass, cost";
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE race = '".$race."' AND (playerClass = '".$class."' OR playerClass = 'neutral')".$filter;
+} else if (!$set && !$name && !$race){
+	$sql="SELECT name,cost,rarity,image FROM Card WHERE (playerClass = '".$class."' OR playerClass = 'neutral')".$filter;
 }
 
 $result = $con->query($sql);

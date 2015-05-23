@@ -17,6 +17,7 @@ $con = new mysqli('localhost', $user, $pass, $db) or die("Unable to connect");
 
 $sql="SELECT * FROM ".$deckNameTrim.$userid.$class;
 $result = $con->query($sql);
+$cardCount = 0;
 if ($result->num_rows > 0) {
 	echo '<input type="hidden" id="deckName" value="'.$deckName.'" >';
 	echo 'Deck Name: '.$deckName.'<br><br>';
@@ -34,12 +35,14 @@ if ($result->num_rows > 0) {
 		echo '<td>'.$row["quantity"].'</td>';
 		echo '<td><input type="button" class="btn btn-success" value = "Remove" onClick="Javacsript:deleteCard(this)"></td>';
 		echo '</tr>';
+		$cardCount = $cardCount + $row["quantity"];
 	}
 	echo '</table><br>';
-	echo '<a href="user_home.html"><input type="button" id="save" value="Save Decklist" onClick="saveDeck()"></a>';
 } else {
 	echo "You don't have any saved decks";
 }
+echo '<div id="cardcount">Card Count = '.$cardCount.'</div><br>';
+echo '<a href="user_home.html"><input type="button" id="save" value="Save Decklist" onClick="saveDeck()"></a>';
 ?>
 </body>
 </html>
